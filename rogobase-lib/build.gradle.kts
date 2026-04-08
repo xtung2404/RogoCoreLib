@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.android.application)
+    id("com.android.library")
 }
 
 android {
@@ -9,11 +9,11 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.rogobase_lib"
+//        applicationId = "com.example.rogobase_lib"
         minSdk = 24
         targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
+//        versionCode = 1
+//        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

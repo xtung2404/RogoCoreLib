@@ -1,5 +1,6 @@
 plugins {
-    alias(libs.plugins.android.application)
+    id("com.android.library")
+    id("maven-publish")
 }
 
 android {
@@ -9,13 +10,18 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.rogocore_lib"
+//        applicationId = "com.example.rogocore_lib"
         minSdk = 24
         targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
+//        versionCode = 1
+//        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+        }
     }
 
     buildTypes {
@@ -42,4 +48,17 @@ dependencies {
     api(project(":rogobase-lib"))
     api(project(":rogobaseapp-lib"))
     api(project(":rogobaseandroid-lib"))
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
+                from(components["release"]) // Bây giờ nó sẽ tìm thấy 'release' nhờ khai báo ở trên
+                groupId = "com.github.xtung2404"
+                artifactId = "RogoCoreLib"
+                version = "1.0.0"
+            }
+        }
+    }
 }
