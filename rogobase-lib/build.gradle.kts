@@ -1,5 +1,6 @@
 plugins {
     id("com.android.library")
+    id("maven-publish")
 }
 
 android {
@@ -18,6 +19,11 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+        }
+    }
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -42,4 +48,17 @@ dependencies {
     implementation(group = "", name = "rogobase", ext = "jar")
 //    implementation(group = "", name = "rogobaseapp", ext = "jar")
 //    implementation(group = "", name = "rogobaseandroid-release", ext = "aar")
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
+                from(components["release"])
+                groupId = "com.github.xtung2404"
+                artifactId = "rogobase-lib" // Phải khớp với tên gọi trong file POM lúc nãy
+                version = "1.0.1.3"
+            }
+        }
+    }
 }

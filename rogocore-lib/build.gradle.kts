@@ -60,7 +60,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.github.xtung2404"
                 artifactId = "RogoCoreLib"
-                version = "1.0.1.2" // Tăng version
+                version = "1.0.1.3" // Tăng version
             }
         }
     }
