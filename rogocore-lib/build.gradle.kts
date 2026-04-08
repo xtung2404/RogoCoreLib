@@ -45,9 +45,12 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    api(project(":rogobase-lib"))
-    api(project(":rogobaseapp-lib"))
-    api(project(":rogobaseandroid-lib"))
+//    api(project(":rogobase-lib"))
+//    api(project(":rogobaseapp-lib"))
+//    api(project(":rogobaseandroid-lib"))
+        implementation(group = "", name = "rogobase", ext = "jar")
+    implementation(group = "", name = "rogobaseapp", ext = "jar")
+    implementation(group = "", name = "rogobaseandroid-release", ext = "aar")
 }
 
 afterEvaluate {
