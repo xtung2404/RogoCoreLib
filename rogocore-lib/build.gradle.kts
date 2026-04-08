@@ -57,7 +57,7 @@ afterEvaluate {
                 from(components["release"]) // Bây giờ nó sẽ tìm thấy 'release' nhờ khai báo ở trên
                 groupId = "com.github.xtung2404"
                 artifactId = "RogoCoreLib"
-                version = "1.0.0"
+                version = "1.0.0.6"
             }
         }
     }
