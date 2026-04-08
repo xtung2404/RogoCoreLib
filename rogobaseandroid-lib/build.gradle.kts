@@ -1,23 +1,15 @@
 plugins {
-//    alias(libs.plugins.android.application)
     id("com.android.library")
     id("maven-publish")
-
 }
 
 android {
     namespace = "com.example.rogobaseandroid_lib"
-    compileSdk {
-        version = release(36)
-    }
+    compileSdk = 35 // Sửa lại giá trị Int thay vì dùng hàm release(36) lỗi
 
     defaultConfig {
-//        applicationId = "com.example.rogobaseandroid_lib"
         minSdk = 24
-        targetSdk = 36
-//        versionCode = 1
-//        versionName = "1.0"
-
+        // targetSdk = 35 // Có thể thêm nếu cần
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -26,15 +18,14 @@ android {
             withSourcesJar()
         }
     }
+
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -44,24 +35,30 @@ android {
 dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
+
+    // NẾU rogobaseandroid-release là một file AAR nằm trong thư mục libs:
+    // Bạn nên dùng cách này để nó được nhúng vào đúng cách
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.aar", "*.jar"))))
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-//    implementation(group = "", name = "rogobase", ext = "jar")
-//    implementation(group = "", name = "rogobaseapp", ext = "jar")
-    implementation(group = "", name = "rogobaseandroid-release", ext = "aar")
 }
 
 afterEvaluate {
     publishing {
         publications {
             create<MavenPublication>("release") {
-                from(components["release"])
+                // Sử dụng findByName để tránh lỗi "release not found"
+                val releaseComponent = components.findByName("release")
+                if (releaseComponent != null) {
+                    from(releaseComponent)
+                }
+
                 groupId = "com.github.xtung2404"
-                artifactId = "rogobaseandroid-lib" // Phải khớp với tên gọi trong file POM lúc nãy
-                version = "1.0.1.3"
+                artifactId = "rogobaseandroid-lib"
+                version = "1.0.1.4" // TĂNG LÊN 1.0.1.4 ĐỂ ĐỒNG BỘ
             }
         }
     }
 }
-

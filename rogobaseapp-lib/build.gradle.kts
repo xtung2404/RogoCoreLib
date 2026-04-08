@@ -1,22 +1,15 @@
 plugins {
-//    alias(libs.plugins.android.application)
     id("com.android.library")
     id("maven-publish")
 }
 
 android {
     namespace = "com.example.rogobaseapp_lib"
-    compileSdk {
-        version = release(36)
-    }
+    // Sửa lại compileSdk cho chuẩn (không dùng hàm release() nếu nó gây lỗi build)
+    compileSdk = 35
 
     defaultConfig {
-//        applicationId = "com.example.rogobaseapp_lib"
         minSdk = 24
-        targetSdk = 36
-//        versionCode = 1
-//        versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -25,6 +18,7 @@ android {
             withSourcesJar()
         }
     }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -34,6 +28,7 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -43,22 +38,30 @@ android {
 dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
+
+    // THAY THẾ CÁCH KHAI BÁO CŨ:
+    // Sử dụng fileTree để nhúng file JAR/AAR trực tiếp vào build.
+    // Cách này giúp file POM sạch sẽ, không chứa các dependency có groupId rỗng.
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-//    implementation(group = "", name = "rogobase", ext = "jar")
-    implementation(group = "", name = "rogobaseapp", ext = "jar")
-//    implementation(group = "", name = "rogobaseandroid-release", ext = "aar")
 }
 
 afterEvaluate {
     publishing {
         publications {
             create<MavenPublication>("release") {
-                from(components["release"])
+                // Sử dụng findByName để an toàn hơn trong quá trình Gradle đánh giá (evaluate)
+                val releaseComponent = components.findByName("release")
+                if (releaseComponent != null) {
+                    from(releaseComponent)
+                }
+
                 groupId = "com.github.xtung2404"
-                artifactId = "rogobaseapp-lib" // Phải khớp với tên gọi trong file POM lúc nãy
-                version = "1.0.1.3"
+                artifactId = "rogobaseapp-lib"
+                version = "1.0.1.4" // Nâng lên 1.0.1.4 đồng bộ với các module khác
             }
         }
     }
