@@ -2,4 +2,4 @@ jdk:
   - openjdk17
 install:
   # Chạy lệnh build đích danh module rogocore-lib
-  - ./gradlew :rogocore-lib:publishToMavenLocal -Pgroup=com.github.xtung2404 -Pversion=1.0.0.8
+  - ./gradlew :rogocore-lib:publishToMavenLocal -Pgroup=com.github.xtung2404 -Pversion=1.0.0.9
