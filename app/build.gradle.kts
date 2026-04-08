@@ -4,14 +4,12 @@ plugins {
 
 android {
     namespace = "com.example.rogocorelib"
-    compileSdk {
-        version = release(36)
-    }
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.rogocorelib"
         minSdk = 24
-        targetSdk = 36
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -41,5 +39,5 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    implementation("com.github.xtung2404:RogoCoreLib:1.0.0.7")
+    implementation("com.github.xtung2404:RogoCoreLib:1.0.0.8")
 }

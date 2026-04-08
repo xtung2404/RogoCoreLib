@@ -57,10 +57,24 @@ afterEvaluate {
     publishing {
         publications {
             create<MavenPublication>("release") {
-                from(components["release"]) // Bây giờ nó sẽ tìm thấy 'release' nhờ khai báo ở trên
+                from(components["release"])
                 groupId = "com.github.xtung2404"
                 artifactId = "RogoCoreLib"
-                version = "1.0.0.7"
+                version = "1.0.0.8" // Tăng version lên để tránh cache
+
+                // THÊM ĐOẠN NÀY ĐỂ FIX LỖI POM:
+                pom.withXml {
+                    val dependenciesNode = asNode().appendNode("dependencies")
+                    // Duyệt qua các module con và ép nó ghi đúng định danh
+                    listOf("rogobase-lib", "rogobaseapp-lib", "rogobaseandroid-lib").forEach { moduleName ->
+                        val depNode = dependenciesNode.appendNode("dependency")
+                        depNode.appendNode("groupId", "com.github.xtung2404")
+                        // Lưu ý: artifactId ở đây phải khớp với tên module bạn đặt trên JitPack
+                        depNode.appendNode("artifactId", moduleName)
+                        depNode.appendNode("version", "1.0.0.8")
+                        depNode.appendNode("scope", "runtime")
+                    }
+                }
             }
         }
     }
