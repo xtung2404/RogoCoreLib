@@ -45,12 +45,12 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-//    api(project(":rogobase-lib"))
-//    api(project(":rogobaseapp-lib"))
-//    api(project(":rogobaseandroid-lib"))
-        implementation(group = "", name = "rogobase", ext = "jar")
-    implementation(group = "", name = "rogobaseapp", ext = "jar")
-    implementation(group = "", name = "rogobaseandroid-release", ext = "aar")
+    api(project(":rogobase-lib"))
+    api(project(":rogobaseapp-lib"))
+    api(project(":rogobaseandroid-lib"))
+//        implementation(group = "", name = "rogobase", ext = "jar")
+//    implementation(group = "", name = "rogobaseapp", ext = "jar")
+//    implementation(group = "", name = "rogobaseandroid-release", ext = "aar")
 }
 
 afterEvaluate {
@@ -60,7 +60,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.github.xtung2404"
                 artifactId = "RogoCoreLib"
-                version = "1.0.1.1" // Tăng version
+                version = "1.0.1.2" // Tăng version
             }
         }
     }
