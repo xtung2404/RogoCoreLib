@@ -38,8 +38,8 @@ dependencies {
 
     // NẾU rogobaseandroid-release là một file AAR nằm trong thư mục libs:
     // Bạn nên dùng cách này để nó được nhúng vào đúng cách
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.aar", "*.jar"))))
-
+//    api(fileTree(mapOf("dir" to "libs", "include" to listOf("*.aar", "*.jar"))))
+    implementation(group = "", name = "rogobaseandroid-release", ext = "aar")
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -57,7 +57,7 @@ afterEvaluate {
 
                 groupId = "com.github.xtung2404"
                 artifactId = "rogobaseandroid-lib"
-                version = "1.0.1.4" // TĂNG LÊN 1.0.1.4 ĐỂ ĐỒNG BỘ
+                version = "1.0.1.5" // TĂNG LÊN 1.0.1.4 ĐỂ ĐỒNG BỘ
             }
         }
     }

@@ -37,8 +37,8 @@ dependencies {
 
     // THAY THẾ CÁCH KHAI BÁO CŨ:
     // Cách này sẽ nhúng file .jar/.aar vào build mà không tạo ra dependency lỗi trong POM
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
-
+//    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
+    implementation(group = "", name = "rogobaseapp", ext = "jar")
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -56,7 +56,7 @@ afterEvaluate {
 
                 groupId = "com.github.xtung2404"
                 artifactId = "rogobase-lib"
-                version = "1.0.1.4" // TĂNG LÊN 1.0.1.4 ĐỂ LÀM MỚI CACHE JITPACK
+                version = "1.0.1.5" // TĂNG LÊN 1.0.1.4 ĐỂ LÀM MỚI CACHE JITPACK
             }
         }
     }

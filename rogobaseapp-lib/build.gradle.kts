@@ -42,8 +42,8 @@ dependencies {
     // THAY THẾ CÁCH KHAI BÁO CŨ:
     // Sử dụng fileTree để nhúng file JAR/AAR trực tiếp vào build.
     // Cách này giúp file POM sạch sẽ, không chứa các dependency có groupId rỗng.
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
-
+//    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
+    implementation(group = "", name = "rogobaseapp", ext = "jar")
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -61,7 +61,7 @@ afterEvaluate {
 
                 groupId = "com.github.xtung2404"
                 artifactId = "rogobaseapp-lib"
-                version = "1.0.1.4" // Nâng lên 1.0.1.4 đồng bộ với các module khác
+                version = "1.0.1.5" // Nâng lên 1.0.1.4 đồng bộ với các module khác
             }
         }
     }
