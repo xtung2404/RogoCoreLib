@@ -1,7 +1,6 @@
 plugins {
     id("com.android.library")
-    id("maven-publish")
-}
+    id("maven-publish")}
 
 android {
     namespace = "com.example.rogocore_lib"
@@ -31,16 +30,30 @@ android {
     }
 }
 
+// --- PHẦN XỬ LÝ ĐẶC BIỆT ĐỂ NHÚNG AAR GIỐNG NHƯ JAR ---
+val extractedAarDir = layout.buildDirectory.dir("intermediates/extracted_aar_jar")
+val extractAarJarTask = tasks.register<Copy>("extractAarJar") {
+    val aarFile = file("libs/rogobaseandroid-release.aar")
+    if (aarFile.exists()) {
+        from(zipTree(aarFile))
+        include("classes.jar")
+        into(extractedAarDir)
+        rename("classes.jar", "rogobaseandroid-release-internal.jar")
+    }
+}
+
 dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
 
-    // Nhúng các file JAR (Gradle hỗ trợ tốt)
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    
-    // Dùng compileOnly cho AAR để IDE nhận class và build không bị lỗi
-    // Lưu ý: Project khác dùng thư viện này sẽ cần tự thêm file AAR này nếu muốn dùng tài nguyên của nó
-    compileOnly(files("libs/rogobaseandroid-release.aar"))
+    // 1. Nhúng các file JAR bình thường
+    api(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+
+    // 2. FIXED: Nhúng file JAR đã giải nén
+    // We pass the task provider directly to api() or use builtBy separately
+    api(files(extractedAarDir.get().file("rogobaseandroid-release-internal.jar")) {
+        builtBy(extractAarJarTask)
+    })
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
@@ -58,7 +71,7 @@ afterEvaluate {
 
                 groupId = "com.github.xtung2404"
                 artifactId = "RogoCoreLib"
-                version = "1.0.2.8"
+                version = "1.0.3.5" // Tăng version để JitPack nhận bản mới nhất
             }
         }
     }
