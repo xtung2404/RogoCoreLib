@@ -59,7 +59,7 @@ afterEvaluate {
 
                 groupId = "com.github.xtung2404"
                 artifactId = "RogoCoreLib"
-                version = "1.0.2.3"
+                version = "1.0.2.4"
             }
         }
     }
