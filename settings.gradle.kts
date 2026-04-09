@@ -26,5 +26,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "RogoCoreLib"
-include(":app")
 include(":rogocore-lib")

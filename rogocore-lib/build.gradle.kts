@@ -9,25 +9,16 @@ android {
 
     defaultConfig {
         minSdk = 24
-        targetSdk = 35
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-    
-    publishing {
-        singleVariant("release") {
-            withSourcesJar()
-        }
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -37,15 +28,17 @@ android {
 dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
+
+    // Dùng compileOnly để IDE nhận class từ .jar và .aar mà không bị lỗi khi build AAR
+    compileOnly(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
+    
+    // Nếu bạn muốn khi app khác dùng thư viện này cũng thấy các class đó, 
+    // bạn phải cài đặt theo cách khác, nhưng để CODE ĐƯỢC trong hii.java thì dùng dòng trên.
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    
-    // Sử dụng fileTree cho jar để IDE nhận diện class ngay lập tức
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    
-    // Sử dụng file .aar (đã cấu hình flatDir trong settings.gradle.kts)
-    implementation(group = "", name = "rogobaseandroid-release", ext = "aar")
 }
 
 afterEvaluate {
@@ -55,7 +48,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.github.xtung2404"
                 artifactId = "RogoCoreLib"
-                version = "1.0.1.9" // Tăng version mới
+                version = "1.0.2.2"
             }
         }
     }
