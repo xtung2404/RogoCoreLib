@@ -39,5 +39,5 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    implementation("com.github.xtung2404:RogoCoreLib:1.0.0.9")
+//    implementation("com.github.xtung2404:RogoCoreLib:1.0.1.9")
 }

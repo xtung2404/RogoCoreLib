@@ -16,20 +16,15 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        jcenter()
         maven { url = uri("https://jitpack.io") }
-        maven { url = uri("https://maven.google.com") }
-
+        
         flatDir {
-            dirs("libs", "${rootProject.projectDir}/rogocore-lib/libs")
+            // Trỏ đúng vào thư mục libs của module hiện tại
+            dirs("rogocore-lib/libs")
         }
     }
-
 }
 
 rootProject.name = "RogoCoreLib"
-//include(":app")
+include(":app")
 include(":rogocore-lib")
-//include(":rogobase-lib")
-//include(":rogobaseandroid-lib")
-//include(":rogobaseapp-lib")

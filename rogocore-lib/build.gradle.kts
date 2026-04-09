@@ -41,10 +41,10 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     
-    // Dependency cho các file .jar (vẫn dùng fileTree được)
+    // Sử dụng fileTree cho jar để IDE nhận diện class ngay lập tức
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     
-    // Dependency cho file .aar (Sử dụng cú pháp này để tránh lỗi hasLocalAarDeps)
+    // Sử dụng file .aar (đã cấu hình flatDir trong settings.gradle.kts)
     implementation(group = "", name = "rogobaseandroid-release", ext = "aar")
 }
 
@@ -55,7 +55,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.github.xtung2404"
                 artifactId = "RogoCoreLib"
-                version = "1.0.1.8" // Tăng version
+                version = "1.0.1.9" // Tăng version mới
             }
         }
     }
