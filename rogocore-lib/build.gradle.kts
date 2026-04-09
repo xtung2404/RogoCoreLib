@@ -8,14 +8,11 @@ android {
     compileSdk = 35
 
     defaultConfig {
-//        applicationId = "com.example.rogocore_lib"
         minSdk = 24
         targetSdk = 35
-//        versionCode = 1
-//        versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+    
     publishing {
         singleVariant("release") {
             withSourcesJar()
@@ -43,14 +40,12 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-//    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
-    api(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
-//    api(project(":rogobase-lib"))
-//    api(project(":rogobaseapp-lib"))
-//    api(project(":rogobaseandroid-lib"))
-//        implementation(group = "", name = "rogobase", ext = "jar")
-//    implementation(group = "", name = "rogobaseapp", ext = "jar")
-//    implementation(group = "", name = "rogobaseandroid-release", ext = "aar")
+    
+    // Dependency cho các file .jar (vẫn dùng fileTree được)
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    
+    // Dependency cho file .aar (Sử dụng cú pháp này để tránh lỗi hasLocalAarDeps)
+    implementation(group = "", name = "rogobaseandroid-release", ext = "aar")
 }
 
 afterEvaluate {
@@ -60,7 +55,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.github.xtung2404"
                 artifactId = "RogoCoreLib"
-                version = "1.0.1.6" // Tăng version
+                version = "1.0.1.8" // Tăng version
             }
         }
     }

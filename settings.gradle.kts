@@ -12,7 +12,7 @@ pluginManagement {
     }
 }
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
     repositories {
         google()
         mavenCentral()
@@ -21,7 +21,7 @@ dependencyResolutionManagement {
         maven { url = uri("https://maven.google.com") }
 
         flatDir {
-            dirs("libs")
+            dirs("libs", "${rootProject.projectDir}/rogocore-lib/libs")
         }
     }
 
@@ -30,6 +30,6 @@ dependencyResolutionManagement {
 rootProject.name = "RogoCoreLib"
 //include(":app")
 include(":rogocore-lib")
-include(":rogobase-lib")
-include(":rogobaseandroid-lib")
-include(":rogobaseapp-lib")
+//include(":rogobase-lib")
+//include(":rogobaseandroid-lib")
+//include(":rogobaseapp-lib")
