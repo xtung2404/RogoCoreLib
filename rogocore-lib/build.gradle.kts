@@ -12,6 +12,13 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    // CẤU HÌNH QUAN TRỌNG: Để có thể publish được AAR
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -29,11 +36,10 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
 
-    // Dùng compileOnly để IDE nhận class từ .jar và .aar mà không bị lỗi khi build AAR
+    // Hỗ trợ IDE nhận class từ .jar và .aar mà không lỗi build
     compileOnly(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
     
-    // Nếu bạn muốn khi app khác dùng thư viện này cũng thấy các class đó, 
-    // bạn phải cài đặt theo cách khác, nhưng để CODE ĐƯỢC trong hii.java thì dùng dòng trên.
+    // Đóng gói các file .jar vào trong thư viện (runtime)
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
     testImplementation(libs.junit)
@@ -45,10 +51,15 @@ afterEvaluate {
     publishing {
         publications {
             create<MavenPublication>("release") {
-                from(components["release"])
+                // Sử dụng findByName để tránh lỗi "not found"
+                val releaseComponent = components.findByName("release")
+                if (releaseComponent != null) {
+                    from(releaseComponent)
+                }
+
                 groupId = "com.github.xtung2404"
                 artifactId = "RogoCoreLib"
-                version = "1.0.2.2"
+                version = "1.0.2.3"
             }
         }
     }
