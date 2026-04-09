@@ -39,7 +39,10 @@ dependencies {
     // NẾU rogobaseandroid-release là một file AAR nằm trong thư mục libs:
     // Bạn nên dùng cách này để nó được nhúng vào đúng cách
 //    api(fileTree(mapOf("dir" to "libs", "include" to listOf("*.aar", "*.jar"))))
-    implementation(group = "", name = "rogobaseandroid-release", ext = "aar")
+//    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
+//    implementation(files("libs/rogobaseandroid-release.aar"))
+
+//    implementation(group = "", name = "rogobaseandroid-release", ext = "aar")
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

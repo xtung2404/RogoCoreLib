@@ -43,7 +43,9 @@ dependencies {
     // Sử dụng fileTree để nhúng file JAR/AAR trực tiếp vào build.
     // Cách này giúp file POM sạch sẽ, không chứa các dependency có groupId rỗng.
 //    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
-    implementation(group = "", name = "rogobaseapp", ext = "jar")
+//    implementation(group = "", name = "rogobaseapp", ext = "jar")
+//    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
+//    implementation(files("libs/rogobaseapp.jar"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

@@ -38,7 +38,9 @@ dependencies {
     // THAY THẾ CÁCH KHAI BÁO CŨ:
     // Cách này sẽ nhúng file .jar/.aar vào build mà không tạo ra dependency lỗi trong POM
 //    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
-    implementation(group = "", name = "rogobaseapp", ext = "jar")
+//    implementation(group = "", name = "rogobaseapp", ext = "jar")
+//    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
+//    implementation(files("libs/rogobaseapp.jar"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
