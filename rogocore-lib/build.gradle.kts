@@ -71,7 +71,7 @@ afterEvaluate {
 
                 groupId = "com.github.xtung2404"
                 artifactId = "RogoCoreLib"
-                version = "1.0.3.16" // Tăng version để JitPack nhận bản mới nhất
+                version = "1.0.3.17" // Tăng version để JitPack nhận bản mới nhất
             }
         }
     }
