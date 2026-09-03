@@ -9,6 +9,7 @@ android {
     defaultConfig {
         minSdk = 24
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     publishing {
@@ -71,7 +72,7 @@ afterEvaluate {
 
                 groupId = "com.github.xtung2404"
                 artifactId = "RogoCoreLib"
-                version = "1.0.3.31" // Tăng version để JitPack nhận bản mới nhất
+                version = "1.0.3.32" // Tăng version để JitPack nhận bản mới nhất
             }
         }
     }
