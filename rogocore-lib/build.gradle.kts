@@ -33,14 +33,16 @@ android {
 
 // --- PHẦN XỬ LÝ ĐẶC BIỆT ĐỂ NHÚNG AAR GIỐNG NHƯ JAR ---
 val extractedAarDir = layout.buildDirectory.dir("intermediates/extracted_aar_jar")
+// Nhận cả bản -release lẫn -debug; báo lỗi rõ ràng thay vì âm thầm bỏ qua khi thiếu file
+val baseAndroidAar = fileTree("libs") { include("rogobaseandroid-*.aar") }.files.singleOrNull()
+    ?: throw GradleException("Cần đúng 1 file libs/rogobaseandroid-*.aar")
+// rogobaseandroid-debug.aar -> rogobaseandroid-debug-internal.jar (tương tự với release)
+val extractedJarName = "${baseAndroidAar.nameWithoutExtension}-internal.jar"
 val extractAarJarTask = tasks.register<Copy>("extractAarJar") {
-    val aarFile = file("libs/rogobaseandroid-release.aar")
-    if (aarFile.exists()) {
-        from(zipTree(aarFile))
-        include("classes.jar")
-        into(extractedAarDir)
-        rename("classes.jar", "rogobaseandroid-release-internal.jar")
-    }
+    from(zipTree(baseAndroidAar))
+    include("classes.jar")
+    into(extractedAarDir)
+    rename("classes.jar", extractedJarName)
 }
 
 dependencies {
@@ -52,7 +54,7 @@ dependencies {
 
     // 2. FIXED: Nhúng file JAR đã giải nén
     // We pass the task provider directly to api() or use builtBy separately
-    api(files(extractedAarDir.get().file("rogobaseandroid-release-internal.jar")) {
+    api(files(extractedAarDir.get().file(extractedJarName)) {
         builtBy(extractAarJarTask)
     })
 
@@ -72,7 +74,7 @@ afterEvaluate {
 
                 groupId = "com.github.xtung2404"
                 artifactId = "RogoCoreLib"
-                version = "1.0.3.39" // Tăng version để JitPack nhận bản mới nhất
+                version = "1.0.3.40" // Tăng version để JitPack nhận bản mới nhất
             }
         }
     }
